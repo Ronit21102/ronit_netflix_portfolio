@@ -8,23 +8,33 @@
   
 }
 
+.logo-overlay-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+
 .netflix-logo {
   width: 500px;
   height: auto;
   opacity: 0;
-  transform: scale(0.8);
-  animation: fadeIn 0.5s forwards ease-in;
+ 
+  z-index: 1;
 }
 
+.netflix-logo:not(.animate):hover { box-shadow: none; transform: none; }
+.netflix-logo:not(.animate) { animation: none; }
+
+.animate.netflix-logo {
+  animation: zoomOut 3s forwards ease-in-out;
+}
 @keyframes fadeIn {
   to {
     opacity: 1;
     transform: scale(1);
   }
-}
-
-.animate.netflix-logo {
-  animation: zoomOut 3s forwards ease-in-out;
 }
 
 @keyframes zoomOut {
@@ -37,3 +47,39 @@
     opacity: 0;
   }
 }
+
+.neon-overlay-text {
+  margin-bottom: 18px;
+  color: #fff;
+  font-size: 1.3rem;
+  font-family: 'Orbitron', 'Arial Black', Arial, sans-serif;
+  text-shadow:
+    0 0 8px #e50914,
+    0 0 16px #e50914,
+    0 0 32px #fff,
+    0 0 64px #e50914;
+  letter-spacing: 2px;
+  pointer-events: none;
+  z-index: 2;
+  animation: neon-flicker 2s infinite alternate;
+  user-select: none;
+  position: static;
+  top: unset;
+  left: unset;
+  transform: none;
+  cursor: pointer;
+}
+
+@keyframes neon-flicker {
+  0%, 100% { opacity: 1; text-shadow: 0 0 8px #e50914, 0 0 16px #e50914, 0 0 32px #fff, 0 0 64px #e50914; }
+  10% { opacity: 0.8; }
+  20% { opacity: 1; }
+  30% { opacity: 0.7; }
+  40% { opacity: 1; }
+  50% { opacity: 0.9; }
+  60% { opacity: 1; }
+  70% { opacity: 0.85; }
+  80% { opacity: 1; }
+  90% { opacity: 0.95; }
+}
+
