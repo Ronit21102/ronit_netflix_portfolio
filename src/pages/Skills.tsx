@@ -1,10 +1,35 @@
-import React, { useEffect, useState } from 'react';
-import './Skills.css';
-import { getSkills } from '../queries/getSkills';
+import React, { useEffect, useState } from "react";
+import "./Skills.css";
+import { getSkills } from "../queries/getSkills";
 
-import { FaReact, FaNodeJs, FaAws, FaDocker, FaGitAlt, FaJava } from 'react-icons/fa';
-import { SiRubyonrails, SiTypescript, SiPostgresql, SiMysql, SiKubernetes, SiGooglecloud, SiSpringboot, SiPhp, SiNetlify, SiHeroku, SiHtml5, SiCss3, SiRabbitmq, SiImessage } from 'react-icons/si';
-import { Skill } from '../types';
+import {
+  FaReact,
+  FaNodeJs,
+  FaAws,
+  FaDocker,
+  FaGitAlt,
+  FaJava,
+} from "react-icons/fa";
+import {
+  SiRubyonrails,
+  SiTypescript,
+  SiPostgresql,
+  SiMysql,
+  SiKubernetes,
+  SiGooglecloud,
+  SiSpringboot,
+  SiPhp,
+  SiNetlify,
+  SiHeroku,
+  SiHtml5,
+  SiCss3,
+  SiRabbitmq,
+  SiImessage,
+  SiMongodb,
+  SiFirebase,
+} from "react-icons/si";
+import { Skill } from "../types";
+import { uploadSkills } from "../queries/firebaseDataPushing";
 
 const iconMap: { [key: string]: JSX.Element } = {
   SiRubyonrails: <SiRubyonrails />,
@@ -24,21 +49,22 @@ const iconMap: { [key: string]: JSX.Element } = {
   SiNetlify: <SiNetlify />,
   SiRabbitmq: <SiRabbitmq />,
   SiImessage: <SiImessage />,
+  SiMongodb: <SiMongodb />,
+  SiFirebase: <SiFirebase />,
 };
 
-
 const Skills: React.FC = () => {
-
-  const [skillsData, setSkillsData] = useState<Skill[]>([]);
+  const [skillsData, setSkillsData] = useState<any>([]);
 
   useEffect(() => {
     //TODO: Uncomment this when we have a real data source
-    // async function fetchSkills() {
-    //   const data = await getSkills();
-    //   setSkillsData(data);
-    // }
+    async function fetchSkills() {
+      const data = await getSkills();
+      setSkillsData(data?.allSkills || []);
+    }
 
-    // fetchSkills()
+    fetchSkills();
+    // uploadSkills();
   }, []);
 
   if (skillsData.length === 0) return <div>Loading...</div>;
@@ -48,7 +74,6 @@ const Skills: React.FC = () => {
     acc[skill.category].push(skill);
     return acc;
   }, {});
-
 
   return (
     <div className="skills-container">
@@ -60,8 +85,12 @@ const Skills: React.FC = () => {
               <div key={idx} className="skill-card">
                 <div className="icon">{iconMap[skill.icon] || <FaReact />}</div>
                 <h3 className="skill-name">
-                  {skill.name.split('').map((letter: any, i: number) => (
-                    <span key={i} className="letter" style={{ animationDelay: `${i * 0.05}s` }}>
+                  {skill.name.split("").map((letter: any, i: number) => (
+                    <span
+                      key={i}
+                      className="letter"
+                      style={{ animationDelay: `${i * 0.05}s` }}
+                    >
                       {letter}
                     </span>
                   ))}
