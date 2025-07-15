@@ -98,7 +98,6 @@ const Projects: React.FC = () => {
 
     // fetchProjects()
     const data = getProjects();
-    console.log("projectData", data);
     setProjects(data);
   }, []);
 
@@ -110,8 +109,17 @@ const Projects: React.FC = () => {
         {projects.map((project: any, index: number) => (
           <div
             key={index}
-            className="project-card"
+            className="project-card clickable"
             style={{ "--delay": `${index * 0.1}s` } as React.CSSProperties}
+            onClick={() =>
+              window.open(project.url, "_blank", "noopener,noreferrer")
+            }
+            role="button"
+            tabIndex={0}
+            onKeyPress={(e) => {
+              if (e.key === "Enter")
+                window.open(project.url, "_blank", "noopener,noreferrer");
+            }}
           >
             <img
               src={project.image.url}
@@ -122,11 +130,20 @@ const Projects: React.FC = () => {
               <h3>{project.title}</h3>
               <p>{project.description}</p>
               <div className="tech-used">
-                {project.techUsed.split(", ").map((tech: any, i: number) => (
-                  <span key={i} className="tech-badge">
-                    {techIcons[tech] || "🔧"} {tech}
-                  </span>
-                ))}
+                {project.techUsed.split(",").map((tech: any, i: number) => {
+                  const techName = tech.trim();
+                  // Try exact match, then case-insensitive match
+                  const icon =
+                    techIcons[techName] ||
+                    techIcons[techName.toLowerCase()] ||
+                    techIcons[techName.replace(/\s+/g, "")] ||
+                    "🔧";
+                  return (
+                    <span key={i} className="tech-badge">
+                      {icon} {techName}
+                    </span>
+                  );
+                })}
               </div>
             </div>
           </div>
