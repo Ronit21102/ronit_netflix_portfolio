@@ -20,12 +20,30 @@ const Certifications: React.FC = () => {
     //   const data = await getCertifications();
     //   setCertifications(data);
     // }
-    const data = getCertifications();
-    setCertifications(data);
+    // const data = getCertifications();
+    // setCertifications(data);
     // fetchCertifications();
   }, []);
 
-  if (certifications.length === 0) return <div>Loading...</div>;
+  if (certifications.length === 0)
+    return (
+      <div
+        style={{
+          textAlign: "center",
+          margin: "3rem 0",
+          fontSize: "2rem",
+          color: "#e50914",
+          fontWeight: "bold",
+          background: "rgba(0,0,0,0.07)",
+          borderRadius: "12px",
+          padding: "2rem",
+          letterSpacing: "2px",
+          boxShadow: "0 2px 16px rgba(229,9,20,0.08)",
+        }}
+      >
+        🚀 Certifications Coming Soon!
+      </div>
+    );
 
   return (
     <div className="certifications-container">

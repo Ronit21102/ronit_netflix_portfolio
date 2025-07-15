@@ -15,16 +15,18 @@ const Blogs: React.FC = () => {
         className="blogs-placeholder"
         style={{
           textAlign: "center",
-          margin: "2rem 0",
-          fontSize: "1.25rem",
+          margin: "3rem 0",
+          fontSize: "2rem",
           color: "#e50914",
           fontWeight: "bold",
-          background: "rgba(0,0,0,0.05)",
-          borderRadius: "8px",
-          padding: "1rem",
+          background: "rgba(0,0,0,0.07)",
+          borderRadius: "12px",
+          padding: "2rem",
+          letterSpacing: "2px",
+          boxShadow: "0 2px 16px rgba(229,9,20,0.08)",
         }}
       >
-        <p>Soon, my blogs will appear here!</p>
+        📝 Blogs Coming Soon!
       </div>
       {blogs.length > 0 && (
         <div className="blogs-grid">
