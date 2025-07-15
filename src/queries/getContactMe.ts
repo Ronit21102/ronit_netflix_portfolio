@@ -1,6 +1,8 @@
 // queries/getContactMe.ts
-import datoCMSClient from './datoCMSClient';
-import { ContactMe } from '../types';
+import datoCMSClient from "./datoCMSClient";
+import { ContactMe } from "../types";
+import { db } from "./firebaseConfig";
+import { doc, getDoc } from "firebase/firestore";
 
 const GET_CONTACT_ME = `
   query {
@@ -19,7 +21,16 @@ const GET_CONTACT_ME = `
   }
 `;
 
-export async function getContactMe(): Promise<ContactMe> {
-  const data = await datoCMSClient.request<{ contactMe: ContactMe }>(GET_CONTACT_ME);
-  return data.contactMe;
+export async function getContactMe() {
+  const docRef = doc(db, "UserData", "contactDetails"); // collection: 'user', document: 'profilebanner'
+  const docSnap = await getDoc(docRef);
+
+  if (docSnap.exists()) {
+    const data = docSnap.data();
+    console.log("Profile Banner Data:", data);
+    return data;
+  } else {
+    console.log("No such document!");
+    return null;
+  }
 }

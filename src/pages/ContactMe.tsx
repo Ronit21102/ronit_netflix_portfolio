@@ -4,17 +4,20 @@ import profilePic from "../images/sumanth.jpeg";
 import { FaEnvelope, FaPhoneAlt, FaCoffee, FaLinkedin } from "react-icons/fa";
 import { ContactMe as IContactMe } from "../types";
 import { getContactMe } from "../queries/getContactMe";
+import { uploadSkills } from "../queries/firebaseDataPushing";
 
 const ContactMe: React.FC = () => {
-  const [userData, setUserData] = useState<IContactMe>();
+  const [userData, setUserData] = useState<any>();
 
   useEffect(() => {
     //TODO: Uncomment this when we have a real data source
-    // async function fetchUserData() {
-    //   const data = await getContactMe();
-    //   setUserData(data);
-    // }
-    // fetchUserData();
+    async function fetchUserData() {
+      const data = await getContactMe();
+      console.log("contactMe", data);
+      setUserData(data?.profileData);
+    }
+    // uploadSkills();
+    fetchUserData();
   }, []);
 
   if (!userData) return <div>Loading...</div>;
@@ -22,7 +25,11 @@ const ContactMe: React.FC = () => {
   return (
     <div className="contact-container">
       <div className="linkedin-badge-custom">
-        <img src={profilePic} alt="Sumanth Samala" className="badge-avatar" />
+        <img
+          src={userData.profilePicture.url}
+          alt="Sumanth Samala"
+          className="badge-avatar"
+        />
         <div className="badge-content">
           <h3 className="badge-name">{userData?.name}</h3>
           <p className="badge-title">{userData.title}</p>
