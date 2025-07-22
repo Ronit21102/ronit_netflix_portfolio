@@ -27,7 +27,7 @@ const ContactMe: React.FC = () => {
       <div className="linkedin-badge-custom">
         <img
           src={userData.profilePicture.url}
-          alt="Sumanth Samala"
+          alt="Ronit Roushan"
           className="badge-avatar"
         />
         <div className="badge-content">
