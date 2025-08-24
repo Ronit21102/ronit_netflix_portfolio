@@ -59,8 +59,9 @@ const Skills: React.FC = () => {
   useEffect(() => {
     //TODO: Uncomment this when we have a real data source
     async function fetchSkills() {
-      const data = await getSkills();
-      setSkillsData(data?.allSkills || []);
+      const data =  getSkills();
+      setSkillsData(data || []);
+      console.log("Skills Data:", data);
     }
 
     fetchSkills();

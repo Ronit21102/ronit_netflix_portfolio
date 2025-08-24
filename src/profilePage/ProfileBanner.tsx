@@ -6,7 +6,7 @@ import { getProfileBanner } from "../queries/getProfileBanner";
 import { ProfileBanner as ProfileBannerType } from "../types";
 
 const ProfileBanner: React.FC = () => {
-  const [bannerData, setBannerData] = useState<any>(null);
+  const [bannerData, setBannerData] = useState<ProfileBannerType | null>(null);
 
   useEffect(() => {
     //TODO: Uncomment this when we have a real data source
@@ -21,6 +21,7 @@ const ProfileBanner: React.FC = () => {
   if (!bannerData) return <div>Loading...</div>;
 
   const handlePlayClick = () => {
+    console.log(bannerData.resumeLink,"banner");
     window.open(bannerData.resumeLink, "_blank");
   };
 

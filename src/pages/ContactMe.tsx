@@ -11,10 +11,10 @@ const ContactMe: React.FC = () => {
 
   useEffect(() => {
     //TODO: Uncomment this when we have a real data source
-    async function fetchUserData() {
-      const data = await getContactMe();
+     function fetchUserData() {
+      const data =  getContactMe();
       console.log("contactMe", data);
-      setUserData(data?.profileData);
+      setUserData(data);
     }
     // uploadSkills();
     fetchUserData();
